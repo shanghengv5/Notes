@@ -94,3 +94,100 @@ void get_URL( const string& host, const string& path )
 ```
 
 ## An in-memory reliable byte stream
+
+```c++
+#include "byte_stream.hh"
+
+using namespace std;
+
+ByteStream::ByteStream( uint64_t capacity ) : capacity_( capacity )
+{
+  buffers_.reserve( capacity );
+}
+
+bool Writer::is_closed() const
+{
+  return is_closed_;
+}
+
+void Writer::push( string data )
+{
+  if ( is_closed() ) {
+    return;
+  }
+  uint64_t dataSize = data.size();
+  if ( dataSize > available_capacity() ) {
+    dataSize = available_capacity();
+  }
+  buffers_ += data.substr( 0, dataSize );
+  bytes_pushed_ += dataSize;
+}
+
+void Writer::close()
+{
+  is_closed_ = true;
+}
+
+uint64_t Writer::available_capacity() const
+{
+  // Your code here.
+  return capacity_ - buffers_.size();
+}
+
+uint64_t Writer::bytes_pushed() const
+{
+  // Your code here.
+  return bytes_pushed_;
+}
+
+bool Reader::is_finished() const
+{
+  // Your code here.
+  return is_closed_ && ( bytes_buffered() == 0 );
+}
+
+uint64_t Reader::bytes_popped() const
+{
+  // Your code here.
+  return bytes_popped_;
+}
+
+string_view Reader::peek() const
+{
+  uint64_t len = bytes_buffered() > 1024 ? 1024 : bytes_buffered();
+  string_view sv( buffers_.data(), len );
+  return sv;
+}
+
+void Reader::pop( uint64_t len )
+{
+  if ( is_finished() ) {
+    return;
+  }
+  if ( len > bytes_buffered() ) {
+    len = bytes_buffered();
+  }
+  buffers_.erase( 0, len );
+  bytes_popped_ += len;
+}
+
+uint64_t Reader::bytes_buffered() const
+{
+  // Your code here.
+  return buffers_.size();
+}
+
+```
+
+没有什么难点，前面一直出现超时是因为环境问题。
+拉镜像又大又慢，毫无必要。
+强烈建议用docker自己构造一个配置环境使用。
+
+```dockerfile
+FROM ubuntu:23.10
+
+RUN apt update && apt install -y git cmake gdb build-essential clang \
+    clang-tidy clang-format gcc-doc pkg-config glibc-doc tcpdump tshark
+```
+
+注意docker国内镜像已经关闭，自己找新的镜像或者代理。
