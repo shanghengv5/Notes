@@ -7,7 +7,7 @@
 # Lab Checkpoint 1: stitching substrings into a byte stream
 
 ## 要点
-pdf涉及的都有了，主要要按照老师给的test去测试。
+pdf介绍的很全面，主要要按照老师给的test去完成，限制的条件很充足。
 
 * 注意超出边界的不管是小于已有排序的，还是大于未排序加剩余空间的都要舍去。
 * 注意内存释放的问题，这个因为我用的map在speed test我花了一些时间解决这个问题。
