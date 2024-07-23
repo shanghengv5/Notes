@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-07-23 09:59:32
  * @LastEditors: LiShangHeng
- * @LastEditTime: 2024-07-23 10:05:36
+ * @LastEditTime: 2024-07-23 10:07:11
  * @FilePath: /CS144/Lab1.md
 -->
 # Lab Checkpoint 1: stitching substrings into a byte stream
@@ -67,7 +67,6 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     // remove all key before ordered index
     // If erase key, will return map size
     // earse iterator will return next iterator
-    // it = ;
   }
   // is last to close
   if ( last_string_flag_ && ( bytes_pushed() >= last_string_index_ ) ) {
