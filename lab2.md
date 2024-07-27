@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-07-26 00:07:45
  * @LastEditors: LiShangHeng
- * @LastEditTime: 2024-07-26 00:13:19
+ * @LastEditTime: 2024-07-27 18:43:45
  * @FilePath: /CS144/lab2.md
 -->
 
@@ -39,5 +39,48 @@ uint64_t Wrap32::unwrap( Wrap32 zero_point, uint64_t checkpoint ) const
   }
 
   return seqnos_diff;
+}
+```
+
+## Implementing the TCP receiver
+receive函数用于接受message对应信息，接受对应FLAG然后根据不同情况插入到reassembler中。
+Receiver的send函数是告诉TCPSender已经接受了多少数据ackno以及window值和RST值是否需要断开连接。
+根据tests的完善实现
+```c++
+#include "tcp_receiver.hh"
+
+using namespace std;
+
+void TCPReceiver::receive( TCPSenderMessage message )
+{
+  if ( message.SYN ) {
+    SYN_ = message.SYN;
+    ISN_ = message.seqno;
+  }
+  if ( message.RST ) {
+    RST_ = message.RST;
+    reassembler_.reader().set_error();
+  }
+  if ( SYN_ ) {
+    message.seqno = message.seqno + message.SYN;
+    uint64_t abs_seqno = message.seqno.unwrap( ISN_, reassembler().writer().bytes_pushed() );
+    // SYN index
+    if ( abs_seqno == 0 ) {
+      reassembler_.insert( abs_seqno, "", message.FIN );
+    } else {
+      reassembler_.insert( abs_seqno - SYN_, message.payload, message.FIN );
+    }
+  }
+}
+
+TCPReceiverMessage TCPReceiver::send() const
+{
+  TCPReceiverMessage msg;
+  Writer w = reassembler().writer();
+  uint64_t ws = w.available_capacity() > UINT16_MAX ? UINT16_MAX : w.available_capacity();
+  msg.window_size = (uint16_t)ws;
+  msg.RST = RST_ || w.has_error() || reassembler().reader().has_error();
+  msg.ackno = SYN_ ? ISN_ + SYN_ + w.bytes_pushed() + w.is_closed() : msg.ackno;
+  return msg;
 }
 ```
