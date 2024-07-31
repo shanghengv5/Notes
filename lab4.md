@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-07-31 22:54:31
  * @LastEditors: LiShangHeng
- * @LastEditTime: 2024-07-31 23:15:55
+ * @LastEditTime: 2024-07-31 23:22:14
  * @FilePath: /CS144/lab4.md
 -->
 
@@ -27,3 +27,5 @@ echo 'username:passwd123' | chpasswd
 # apt-get install systemd
 ```
 ![alt text](image-9.png)
+依然有问题，因为已经开始工作，决定不在环境上浪费时间。还是老老实实下载老师提供的镜像吧。
+重新回check0下载，然后睡觉。
