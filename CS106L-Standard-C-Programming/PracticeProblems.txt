@@ -1,0 +1,210 @@
+# chapter1-3
+
+1. How do you write data to a file in C++?
+checkout TestOfstream()
+2. What does the setw manipulator do? What does the setfill manipulator do? How do you use
+them?
+setw give you a width of empty string, setfill can change the width for fill
+3. What is stream failure? How do you check for it?
+return 1 or else
+4. What is a stringstream?
+It can accept all types message include whitespace
+5. Using a stringstream, write a function that converts an int into a string.
+checkout ConvertIntToStringByStringstream()
+6. Modify the code for GetInteger to create a function GetReal that reads a real number from the user. How much did you need to modify to make this code work?
+checkout GetReal()
+7. Using the code for GetInteger and the boolalpha stream manipulator, write a function GetBoolean that waits for the user to enter “true” or “false” and returns the corresponding boolean value
+checkout GetBoolean()
+
+8. In common usage, numbers are written in decimal or base 10. This means that a string of digits is interpreted as a sum of multiples of powers of ten. For example, the number 137  is 1·100 + 3·10 + 7·1, which is the same as  1·10^2 + 3·10^1 + 7·10^0. However, it is possible to write numbers in other bases as well. For example, octal, or base 8, encodes numbers as sums of multiples of powers of eight. For example, 137 in octal would be 1·8^2 + 3·8^1 + 7·8^0 = 64 + 24 + 7 = 95 in decimal. * Similarly, binary, or base 2, uses powers of two. When working in a particular base, we only use digits from 0 up to that base. Thus in base 10 we use the digits zero through nine, while in base five the only digits would be 0, 1, 2, 3, and 4. This means that 57 is not a valid base-five number and 93 is not a valid octal number. When working in bases numbered higher than ten, it is customary to use letters from the beginning of the alphabet as digits. For example, in hexadecimal, or base 16, one counts 0, 1, 2, ..., 9, A, B, C, D, E, F, 10. This means that 3D45E is a valid hexadecimal number, as is DEADBEEF or DEFACED. Write a function HasHexLetters that accepts an int and returns whether or not that integer's hexadecimal representation contains letters. (Hint: you'll need to use the hex and dec stream manipulators in conjunction with a stringstream. Try to solve this problem without brute-forcing it: leverage off the streams library instead of using loops.) 
+checkout HasHexLetters()
+
+9. Although the console does not naturally lend itself to graphics programming, it is possible to draw rudimentary approximations of polygons by printing out multiple copies of a character at the proper location. For example, we can draw a triangle by drawing a single character on one line,then three on the next, five on the line after that, etc. For example: 
+    #
+    ###
+    #####
+    #######
+    #########
+Using the setw and setfill stream manipulators, write a function DrawTriangle that takes in
+an int corresponding to the height of the triangle and a char representing a character to print,
+then draws a triangle of the specified height using that character. The triangle should be aligned so
+that the bottom row starts at the beginning of its line.
+checkout DrawTriangle()
+
+10.Write a function OpenFile that accepts as input an ifstream by reference and prompts the user
+for the name of a file. If the file can be found, OpenFile should return with the ifstream opened
+to read that file. Otherwise, OpenFile should print an error message and reprompt the user.
+(Hint: If you try to open a nonexistent file with an ifstream, the stream goes into a fail state and you
+will need to use .clear() to restore it before trying again).
+checkout OpenFileByPrompt()
+
+# chapter4
+
+1.diffrences between #define and const
+const compiler in running, #define work on preprocesser
+const can deal with arithmetic operator, #define need to use parentheses to avoid mistake
+const treat =,int, as a c++ struct, but #define treat like a text
+
+2.use #define to help cross platform
+#if #defined(_WIN32) 
+    err << "not defined WIN32";
+#endif
+
+3.write a Max function,and explained why it doesnt have the same problem in earlier chapter
+int function Max(int a, int b) {
+    return a > b ? a : b;
+}
+
+because the #define treat the rest part as text,not a arithmetic logic operator
+
+4.Give advantage of macro Max
+
+It can process many types(int,float,string),it run in preprocess,more efficiency
+
+5.Explain the C++ codes illegal part
+bool IsPositive(int x) {
+    return x < 0;
+}
+
+#if IsPositive(MY_CONSTANT)
+    #define result true
+#else
+    #define result false
+#endif
+
+The macro run on preprocess, is more earlier than function which run on compiler time
+
+6.Compiler rarely  inline recursive function,why
+recursive need stack to store variables
+
+7.Most of STL function are inlined,explain why
+It just search and replace to c++ code,inline this function is helpful.Unnecessary to build on compiler
+
+8.Add a nonexist color,do you actually need to change color.h file?
+yes, add is best way
+
+9.write function StringToColor,if doesnt exist color return NOT_A_COLOR
+
+Color StringToColor(string s) {
+    #define DEFINE_COLOR(color, opposite) if (ColorToString(color) == s) { return color;}
+    #include "color.h"
+    #undef DEFINE_COLOR
+    return NOT_A_COLOR;
+}
+
+10.. Suppose that you want to make sure that the enumerated values you've made for Color do not
+conflict with other enumerated types that might be introduced into your program. Modify the
+earlier definition of DEFINE_COLOR used to define enum Color so that all of the colors are
+prefaced with the identifier eColor_. For example, the old value Red should change to
+eColor_Red, the old Blue would be eColor_Blue, etc. Do not change the contents of color.h.
+(Hint: Use one of the preprocessor string-manipulation operators) ♦
+
+#define cName(color) eColor_##color
+enum Color {
+    #define DEFINE_COLOR(color, opposite) cName(color),
+    #include "color.h"
+    #undef DEFINE_COLOR
+};
+
+
+11. The #error directive causes a compile-time error if the preprocessor encounters it. This may
+sound strange at first, but is an excellent way for detecting problems during preprocessing that
+might snowball into larger problems later in the code. For example, if code uses compiler-specific
+features (such as the OpenMP library), it might add a check to see that a compiler-specific
+#define is in place, using #error to report an error if it isn't. The syntax for #error is #error
+message, where message is a message to the user explaining the problem. Modify color.h so
+that if a caller #includes the file without first #define-ing the DEFINE_COLOR macro, the
+preprocessor reports an error containing message how to use this file
+
+#ifndef COLOR_H
+#error not define
+#endif
+
+12.Unit Challenge
+
+pass
+
+# chapter 5
+
+1. List two differences between the vector's push_back and resize member functions.
+ push_back is add an element to tail of vector, resize can add or arase an element,it add element with fill default element
+2. What header files do you need to #include to use vector? deque?
+#include <vector> #include <deque>
+3. How do you tell how many elements are in a vector? In a deque?
+values.size()
+4. How do you remove the first element from a vector? From a deque?
+vec.erase(vec.begin() + 0);
+deque.pop_front();
+5. Write a function called LinesFromFile which takes in a string containing a filename and returns a vector<string> containing all of the lines of text in the file in the order in which they appear. If the file does not exist, you can return an empty vector. (Hint: look at the code for reading the world file in the Snake example and see if you can modify it appropriately)
+void LineFromFile() {
+    vector<string> vec;
+    ifstream input;
+    OpenUserFile(input);
+    string text;
+    while(getline(input, text)) {
+        vec.push_back(text);
+    }
+    input.close();
+    for(int i = 0; i < vec.size(); ++i) {
+        cout << vec[i] << endl;
+    }
+}
+6. Update the code for the sorting program so that it sorts elements in descending order instead ofascending order.
+Just change FindSmaller to findBiggest and insert
+7. One use for the deque container is to create a ring buffer. Unlike the linear vector and deque containers you saw in this chapter, a ring buffer is circular. Here's an illustration of a ring buffer:
+implement a ring constructor
+
+# chapter 6
+
+1. How do you check whether an element is contained in an STL set?
+    set.find(element) != set.end() or set.count(element) == true
+2. What is the restriction on what types can be stored in an STL set? Do the vector or deque have this restriction?
+primitive type,and implement comparable,the  restriction of set is different
+3. How do you insert an element into a set? How do you remove an element from a set?
+set.insert(element)
+set.clear()
+set.erase(element)
+4. How many copies of a single element can exist in a set? How about a multiset?
+only one in set,mutiset can save infinite copy element
+5. How do you iterate over the contents of a set?
+for(set<int>::iterator itr = sets.begin(); itr != set.end; itr++)
+6. How do you check whether a key is contained in an STL map?
+same as set
+7. List two ways that you can insert key/value pairs into an STL map.
+maps[key] = value;
+maps.insert(make_pair(key, value));
+8. What happens if you look up the value associated with a nonexistent key in an STL map using square brackets? What if you use the find function?
+create a new key with value.use find function can check whether a key is contained in an STL map.
+9. Recall that when iterating over the contents of an STL multiset, the elements will be visited in sorted order. Using this property, rewrite the program from last chapter that reads a list of numbers from the user, then prints them in sorted order. Why is it necessary to use a multiset instead of a regular set?
+set only store unique element
+10. The union of two sets is the collection of elements contained in at least one of the sets. For example, the union of {1, 2, 3, 5, 8} and {2, 3, 5, 7, 11} is {1, 2, 3, 5, 7, 8, 11}. Write a function Union which takes in two set<int> and returns their union.
+iterate one set, and insert another
+11. The intersection of two sets is the collection of elements contained in both of the sets. For example, the intersection of {1, 2, 3, 5, 8} and {2, 3, 5, 7, 11} is {2, 3, 5}. Write a function Intersection that takes in two set<int>s and returns their intersection.
+use count(element) to find the intersection
+12. Earlier in this chapter, we wrote a program that rolled dice until the same number was rolled twice, then printed out the number of rolls made. Rewrite this program so that the same number must be rolled three times before the process terminates. How many times do you expect this process to take when rolling twenty-sided dice? (Hint: you will probably want to switch from using  a set to using a multiset. Also, remember the difference between the set's count function and the multiset's count function)
+9.9963
+13. As mentioned in this chapter, you can use a combination of lower_bound and upper_bound to iterate over elements in the closed interval [min, max]. What combination of these two functions could you use to iterate over the interval [min, max)? What about (min, max] and (min, max)?
+[min, max]
+lower = mySet.lower_bound(min);
+upper = mySet.upper_bound(max);
+for(itr = lower; lower != upper; ++lower)
+(min, max]
+lower = mySet.lower_bound(min);
+upper = mySet.upper_bound(max);
+lower = next(lower);
+upper = mySet.lower_bound(max);
+(min, max)  
+lower = mySet.lower_bound(min);
+upper = mySet.upper_bound(max);
+lower = next(lower);
+upper = prev(upper);
+14. Write a function NumberDuplicateEntries that accepts a map<string, string> and returns the number of duplicate values in the map (that is, the number of key/value pairs in the map with the same value).
+create a new map to count,the value is key and count is value;
+15. Write a function InvertMap that accepts as input a map<string, string> and returns a multimap<string, string> where each pair (key, value) in the source map is represented by (value, key) in the generated multimap. Why is it necessary to use a multimap here? How could you use the NumberDuplicateEntries function from the previous question to determine whether it is possible to invert the map into another map?
+Because the value can be duplicated,so use multimap.No, you can use NumberDuplicateEntries,It accept map<string, string> type;
+16. Suppose that we have two map<string, string>s called one and two. We can define the composition of one and two (denoted two ○ one) as follows: for any string r, if one[r] is s and two[s] is t, then (two ○ one)[r] = t. That is, looking up an element x in the composition of the maps is equivalent to looking up the value associated with x in one and then looking up its associated value in two. If one does not contain r as a key or if one[r] is not a key in two, then (two ○ one)[r] is undefined. Write a function ComposeMaps that takes in two map<string, string>s and returns a map<string, string> containing their composition.
+map<string, string> one;
+map<string, string> two;
+if one.count(r) || two.count(one[r]) return two[one[r]];
+17. (Challenge problem!) Write a function PrintMatchingPrefixes that accepts a set<string> and a string containing a prefix and prints out all of the entries of the set that begin with that prefix. Your function should only iterate over the entires it finally prints out. You can assume the prefix is nonempty, consists only of alphanumeric characters, and should treat prefixes case-sensitively. (Hint: In a set<string>, strings are sorted lexicographically, so all strings that start with “abc” will come before all strings that start with "abd")
+use DFA to solve
