@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.py": "python",
+        "*.wxss": "css",
+        "*.wxml": "html",
+        "stdlib.h": "c"
+    }
+}
