@@ -3,6 +3,10 @@
         "*.py": "python",
         "*.wxss": "css",
         "*.wxml": "html",
-        "stdlib.h": "c"
+        "*.tpl": "html",
+        "stdlib.h": "c",
+        "user.h": "c",
+        "types.h": "c",
+        "stat.h": "c"
     }
 }
