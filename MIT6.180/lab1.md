@@ -48,3 +48,38 @@ main(int argc, char *argv[])
 开始的练手小作业，注意去MAKEFILE增加编译即可
 
 ### pingpong
+```c
+#include "kernel/types.h"
+#include "kernel/stat.h"
+#include "user/user.h"
+
+
+int
+main(int argc, char *argv[])
+{
+  int p[2]; 
+  pipe(p);
+  char buf[4];
+
+  // child process
+  if (fork() == 0) {
+    read(p[0], buf, 5);   
+    close(p[0]);
+    write(p[1], "pong", 4);
+    close(p[1]); 
+    fprintf(1, "%d: receive %s \n", getpid(), buf); 
+    exit(0);   
+  } 
+
+  write(p[1], "ping", 4);
+  close(p[1]);
+  // Parent process run here and wait child
+  wait(0); //waitpid
+  read(p[0], buf, 5);
+  close(p[0]);
+  fprintf(1, "%d: receive %s \n", getpid(), buf);
+  exit(0);
+}
+```
+
+### primes
