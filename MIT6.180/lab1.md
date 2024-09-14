@@ -83,3 +83,5 @@ main(int argc, char *argv[])
 ```
 
 ### primes
+
+[CSP Models](https://swtch.com/~rsc/thread/) csp模型讲述了并发进程的通信，推荐阅读。
