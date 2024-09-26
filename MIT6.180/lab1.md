@@ -85,3 +85,21 @@ main(int argc, char *argv[])
 ### primes
 
 [CSP Models](https://swtch.com/~rsc/thread/) csp模型讲述了并发进程的通信，推荐阅读。
+
+![alt text](image.png)
+
+卡了我好久，这一段，这是2024最新的课程，2到280区间的素数。
+筛选逻辑就不说了，看论文就有，重点是这里的关闭管道文件，如果没有关闭管道，那么在fd14的时候，你的资源就会耗尽。
+pipe(p) 会返回-1.
+还好阅读了book-riscv-rev4的内容，里面wc有一段代码
+```c
+if(fork() == 0) {
+  close(0);
+  dup(p[0]);
+  close(p[0]);
+  close(p[1]);
+  exec("/bin/wc", argv);
+}
+```
+这里告诉你如何提前利用标准输入去做fd，提前关闭管道。
+完成这里之后如果显示有换行，记得在函数wait(0)。保证时序。
