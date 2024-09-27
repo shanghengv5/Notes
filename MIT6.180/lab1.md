@@ -105,3 +105,87 @@ if(fork() == 0) {
 完成这里之后如果显示有换行，记得在函数wait(0)。保证时序。
 
 ### find
+打开ls.c，复制然后阅读代码。
+没什么难点，注意C语言字符串实际就是一个*char指针即可
+```c
+#include "kernel/types.h"
+#include "kernel/stat.h"
+#include "user/user.h"
+#include "kernel/fs.h"
+#include "kernel/fcntl.h"
+
+
+void
+find(char *path, char *filename)
+{
+  char buf[512], *p;
+  int fd;
+  struct dirent de;
+  struct stat st;
+  char cur[] = ".";
+  char prev[] = "..";
+
+  if((fd = open(path, O_RDONLY)) < 0){
+    fprintf(2, "find: cannot open %s\n", path);
+    return;
+  }
+
+  if(fstat(fd, &st) < 0){
+    fprintf(2, "find: cannot stat %s\n", path);
+    close(fd);
+    return;
+  }
+
+  if (st.type != T_DIR) {
+    fprintf(2, "find: path %s not a dir\n", path);
+    close(fd);
+    return;
+  }
+
+  if(strlen(path) + 1 + DIRSIZ + 1 > sizeof buf){
+    printf("find: path too long\n");
+    close(fd);
+    return;
+  }
+  strcpy(buf, path);
+  p = buf+strlen(buf);
+  *p++ = '/';
+  while(read(fd, &de, sizeof(de)) == sizeof(de)){
+    if(de.inum == 0)
+      continue;
+    memmove(p, de.name, DIRSIZ);
+    p[DIRSIZ] = 0;
+    // c string is a pointer link to first char
+    if(stat(buf, &st) < 0 || strcmp(cur, p) == 0 || strcmp(prev, p) == 0 ){
+      // printf("skip %s %d  %d \n", p, *(prev+2), *(p+2));
+      continue;
+    }
+    if (st.type == T_DIR) {
+      // recursive
+      find(buf, filename);
+      continue;
+    }
+    // find and print
+    if ( strcmp(p, filename) == 0) {
+       printf("%s\n", buf);
+    }
+  }
+  close(fd);
+}
+
+
+
+int
+main(int argc, char *argv[])
+{
+  if(argc != 3){
+    fprintf(2, "error params");
+    exit(0);
+  }
+  find(argv[1], argv[2]);
+  exit(0);
+}
+
+```
+
+### xargs
