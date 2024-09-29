@@ -9,6 +9,26 @@
         "types.h": "c",
         "stat.h": "c",
         "sstream": "c",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "param.h": "c",
+        "array": "c",
+        "atomic": "c",
+        "bit": "c",
+        "*.tcc": "c",
+        "deque": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "algorithm": "c",
+        "memory_resource": "c",
+        "string_view": "c",
+        "memory": "c",
+        "random": "c",
+        "fstream": "c",
+        "initializer_list": "c",
+        "istream": "c",
+        "stdexcept": "c",
+        "tuple": "c",
+        "type_traits": "c"
     }
 }
