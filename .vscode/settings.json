@@ -29,6 +29,8 @@
         "istream": "c",
         "stdexcept": "c",
         "tuple": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "fcntl.h": "c",
+        "fs.h": "c"
     }
 }

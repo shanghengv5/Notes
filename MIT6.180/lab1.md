@@ -63,7 +63,7 @@ main(int argc, char *argv[])
 
   // child process
   if (fork() == 0) {
-    read(p[0], buf, 5);   
+    read(p[0], buf, 4);   
     close(p[0]);
     write(p[1], "pong", 4);
     close(p[1]); 
@@ -75,7 +75,7 @@ main(int argc, char *argv[])
   close(p[1]);
   // Parent process run here and wait child
   wait(0); //waitpid
-  read(p[0], buf, 5);
+  read(p[0], buf, 4);
   close(p[0]);
   fprintf(1, "%d: receive %s \n", getpid(), buf);
   exit(0);
@@ -189,3 +189,62 @@ main(int argc, char *argv[])
 ```
 
 ### xargs
+这个考点主要考exec的使用以及对c字符串的理解
+char*分配一个指针地址大小的内存。
+不过最后过是靠fprintf了参数过的，不知道哪里有问题。
+这题也男调试，晚点再回来复查。
+```c
+#include "kernel/param.h"
+#include "kernel/types.h"
+#include "kernel/stat.h"
+#include "user/user.h"
+
+char*
+readArgs()
+{
+  char* args = malloc(MAXARG * sizeof(char));
+  char* tmp = args;
+  while(read(0, tmp, sizeof(char)) != 0) {
+    if(*tmp == '\n' || *tmp == '\0') {
+      *tmp = '\0';
+      return args;
+    }
+    tmp++;
+  }
+  if ( tmp != args) {
+    return args;
+  }
+  return 0;
+}
+
+int
+main(int argc, char *argv[])
+{
+  if(argc > MAXARG || argc < 2){
+    fprintf(2, "error params");
+    exit(0);
+  }
+  char* cmd = argv[1];
+  char** newArgv;
+  char* args;
+  newArgv = malloc(argc * sizeof(char*)); // 分配指针大小的数组空间
+  // 跳过xargs
+  for(int i = 1; i < argc; i++) {
+    newArgv[i-1] = argv[i];
+  }
+  while( (args=readArgs()) != 0 ) {
+    if(fork() == 0) {
+      newArgv[argc-1] = args;
+      fprintf(1, "%s\n", args);
+      exec(cmd, newArgv);
+    } 
+    wait(0);
+  }
+  // fprintf(1, "cmd:%s argc:%d", cmd, argc);
+  exit(0);
+}
+
+```
+
+![alt text](image-1.png)
+最后还发现了pingpong有个小bug，留给参考的同学改了
