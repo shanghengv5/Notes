@@ -19,3 +19,11 @@
 
 ## Process overview
 
+* trampoline 跳板，4096byte，以实现函数调用和控制流的转移。
+* trapframe 陷阱帧
+    * 指令计数器(Programe Counter PC)
+    * 栈指针(Stack Pointer SP)
+    * 寄存器状态
+    * 中断或者其他异常类型
+通过trampoline和trapframe实现转换进入内核和返回。
+trampoline实现内核的进入和返回，trapframe保存了进城的状态和信息。
