@@ -50,3 +50,12 @@ A address space to give a process illusion of its own memory
 A thread to give the process the illusion of its own CPU
 
 ## 2.6 the first process and system call
+概述一个系统如何启动
+![alt text](image-4.png)
+
+## 2.7 Security Model
+
+系统必须假设用户层代码会尽全力破坏内核或者其他进城。如果用户层代码访问地址超出了允许的地址空间，那么就可能访问到指令集,即使这不是为用户层设计的。
+他可能试图读或者写内核的控制寄存器。也可能直接访问设备硬件，甚至传递一些参数导致系统崩溃。
+
+## 2.8 Real World
