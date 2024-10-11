@@ -59,3 +59,21 @@ A thread to give the process the illusion of its own CPU
 他可能试图读或者写内核的控制寄存器。也可能直接访问设备硬件，甚至传递一些参数导致系统崩溃。
 
 ## 2.8 Real World
+
+## lab
+
+```zsh
+# 窗口1
+make qemu-gdb
+# 窗口2
+gdb-multiarch
+```
+
+### Looking at the backtrace output, which function called syscall?
+![alt text](image-5.png)
+
+### What is the value of p->trapframe->a7 and what does that value represent? (Hint: look user/initcode.S, the first user program xv6 starts.)
+![alt text](image-7.png)
+
+### What was the previous mode that the CPU was in?
+![alt text](image-8.png)
