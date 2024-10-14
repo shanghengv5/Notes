@@ -67,6 +67,8 @@ A thread to give the process the illusion of its own CPU
 make qemu-gdb
 # 窗口2
 gdb-multiarch
+# 加载.gdbinit
+source .gdbinit
 ```
 
 ### Looking at the backtrace output, which function called syscall?
@@ -77,3 +79,17 @@ gdb-multiarch
 
 ### What was the previous mode that the CPU was in?
 ![alt text](image-8.png)
+![alt text](image-9.png)
+
+可以知道ssp在第8位，0010,0010后八位中，ssp=0
+
+### Write down the assembly instruction the kernel is panicing at. Which register corresponds to the variable num?
+
+![alt text](image-10.png)
+执行
+
+![alt text](image-11.png)
+
+将地址0x0的特殊寄存器0加载到a3 寄存器中。
+
+###  
