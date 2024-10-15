@@ -92,4 +92,4 @@ source .gdbinit
 
 将地址0x0的特殊寄存器0加载到a3 寄存器中。
 
-###  
+###  Why does the kernel crash? Hint: look at figure 3-3 in the text; is address 0 mapped in the kernel address space? Is that confirmed by the value in scause above? (See description of scause in RISC-V privileged instructions)
