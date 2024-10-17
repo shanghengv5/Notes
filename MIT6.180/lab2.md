@@ -93,3 +93,21 @@ source .gdbinit
 将地址0x0的特殊寄存器0加载到a3 寄存器中。
 
 ###  Why does the kernel crash? Hint: look at figure 3-3 in the text; is address 0 mapped in the kernel address space? Is that confirmed by the value in scause above? (See description of scause in RISC-V privileged instructions)
+
+#### Figure3
+
+* Sv39 only use 39bits of a 64-bit virtual address
+* PTEs 2的27次方 to find a PTE and make the 56-bit physical address by 44-bit from PPN and whose bottom 12 bits are copied from the original virtual address.
+* PPN 44-bit physical page number(PPN)
+
+![alt text](image-12.png)
+
+* TLB(Translation Look-aside Buffer),用户缓存虚拟地址与物理地址的映射关系，因为使用了三层PTEs结构，内存需要加载三层的PTEs是一个潜在的性能隐患。
+
+![alt text](image-13.png)
+RISC-V address translation details
+
+* satp(Supervisor Address traslation and protection register)
+    * Page Table Base Address:页表的基地址
+    * Address Translation and Protection Mode:地址转换和保护模式，比如页表模式和分页模式
+    * Address Space Protection:地址空间保护策略，比如访问权限控制，内存区域的可读执行属性
