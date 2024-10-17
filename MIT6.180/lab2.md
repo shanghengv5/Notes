@@ -111,3 +111,14 @@ RISC-V address translation details
     * Page Table Base Address:页表的基地址
     * Address Translation and Protection Mode:地址转换和保护模式，比如页表模式和分页模式
     * Address Space Protection:地址空间保护策略，比如访问权限控制，内存区域的可读执行属性
+
+![alt text](image-14.png)
+
+* PLIC(Platform Level Interupt Controller),用于外部设备与处理器的中断分发控制器，PLIC会根据不同优先级发出对应不同设备的中断信号，用以管理设备的运行与中止。
+* UART(Universal Asynchronous Receiver Transmitter),用于与外部设备的串行通信。
+* VIRTIO disk,用于虚拟化存储方案，一般用于虚拟机或者虚拟容器
+* Guard page,用于内存的保护和检测，目的是防止错误的读取和写入超出范围的数据。
+
+##### Kernel address space
+
+
