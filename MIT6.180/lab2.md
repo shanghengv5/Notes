@@ -60,7 +60,7 @@ A thread to give the process the illusion of its own CPU
 
 ## 2.8 Real World
 
-## lab
+# lab
 
 ```zsh
 # 窗口1
@@ -70,6 +70,7 @@ gdb-multiarch
 # 加载.gdbinit
 source .gdbinit
 ```
+## Using gdb (easy)
 
 ### Looking at the backtrace output, which function called syscall?
 ![alt text](image-5.png)
@@ -168,3 +169,5 @@ summary
     ** progvhdr 程序头，包含指令和数据
 
 #### Real World
+
+## System call tracing (moderate)
