@@ -114,6 +114,7 @@ RISC-V address translation details
 
 ![alt text](image-14.png)
 
+* CLINT(Core Local Interupt),处理器用于内部中断使用，管理处理器核心之间的中断和定时器事件。
 * PLIC(Platform Level Interupt Controller),用于外部设备与处理器的中断分发控制器，PLIC会根据不同优先级发出对应不同设备的中断信号，用以管理设备的运行与中止。
 * UART(Universal Asynchronous Receiver Transmitter),用于与外部设备的串行通信。
 * VIRTIO disk,用于虚拟化存储方案，一般用于虚拟机或者虚拟容器
@@ -129,3 +130,12 @@ The kernel gets at RAM and memory-mapped device registers using "direct mapping"
 There are a couple of kernel virtual addresses that aren't direct-mapped:
 * The trampoline page. It is mapped at the top of virtual address space;
 * The kernel stack pages. Each process has its own kernel stack,which is mapped high so that below it xv6 can leave an unmapped guard page.The guard page's PTE is invalid, so that if the kernel overflows a kernel stack, it will likely cause an exception and the kernel will panic.
+
+##### Code:creating an address space
+
+* sfence(store fence),存储屏障，用于保障存储指令在乱序中能够保持一致，保证等待之前的更新操作必须完成。
+
+##### Physical memory allocation
+
+##### Code:Physical memory allocator
+
