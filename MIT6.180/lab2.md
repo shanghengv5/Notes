@@ -94,6 +94,8 @@ source .gdbinit
 
 ###  Why does the kernel crash? Hint: look at figure 3-3 in the text; is address 0 mapped in the kernel address space? Is that confirmed by the value in scause above? (See description of scause in RISC-V privileged instructions)
 
+![alt text](image-15.png)
+
 #### Figure3
 
 * Sv39 only use 39bits of a 64-bit virtual address
@@ -142,3 +144,17 @@ There are a couple of kernel virtual addresses that aren't direct-mapped:
 * PGROUNDUP 定义了对齐的大小，通常是4KB
 
 #### Process address space
+
+use many permission to control user address space, like PTE_R,PTE_W,PTE_X.PTE_U
+And use guard page to avoid accessing the disallowed address.
+
+![alt text](image-16.png)
+
+summary
+![alt text](image-17.png)
+
+#### Code:sbrk
+![alt text](image-18.png)
+![alt text](image-19.png)
+
+#### Code:exec
