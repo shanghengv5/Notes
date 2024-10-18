@@ -158,3 +158,9 @@ summary
 ![alt text](image-19.png)
 
 #### Code:exec
+
+* ELF(Executable and Linked Format)可执行文件，目标文件，共享库标准文件格式。
+    ** elfhdr elf头，包含elf格式的文件信息
+    ** progvhdr 程序头，包含指令和数据
+
+#### Real World
