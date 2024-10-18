@@ -121,4 +121,11 @@ RISC-V address translation details
 
 ##### Kernel address space
 
+* PHYSTOP 定义了物理地址的顶值
+* KERNBASE (kernel base address),内核虚拟地址的基准起始地址。
 
+The kernel gets at RAM and memory-mapped device registers using "direct mapping" that is mapping the resources at virtual addressses that are equal to the physical address.
+
+There are a couple of kernel virtual addresses that aren't direct-mapped:
+* The trampoline page. It is mapped at the top of virtual address space;
+* The kernel stack pages. Each process has its own kernel stack,which is mapped high so that below it xv6 can leave an unmapped guard page.The guard page's PTE is invalid, so that if the kernel overflows a kernel stack, it will likely cause an exception and the kernel will panic.
