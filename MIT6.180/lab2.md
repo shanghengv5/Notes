@@ -139,3 +139,6 @@ There are a couple of kernel virtual addresses that aren't direct-mapped:
 
 ##### Code:Physical memory allocator
 
+* PGROUNDUP 定义了对齐的大小，通常是4KB
+
+#### Process address space
