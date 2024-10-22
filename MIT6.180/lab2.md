@@ -173,3 +173,15 @@ summary
 #### Real World
 
 ## System call tracing (moderate)
+
+按照hint指示操作即可完成这个lab
+
+![alt text](image-24.png)
+![alt text](image-25.png)
+![alt text](image-26.png)
+![alt text](image-27.png)
+![alt text](image-28.png)
+![alt text](image-29.png)
+![alt text](image-30.png)
+
+## Attack xv6 (moderate)
