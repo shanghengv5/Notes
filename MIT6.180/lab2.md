@@ -231,4 +231,42 @@ kalloc(void)
 
 可以看到每次kalloc都从freelist的头部分配一个空闲内存块。
 
+```c
+sz = PGROUNDUP(sz);
+  uint64 sz1;
+  if((sz1 = uvmalloc(pagetable, sz, sz + (USERSTACK+1)*PGSIZE, PTE_W)) == 0)
+    goto bad;
+  sz = sz1;
+  uvmclear(pagetable, sz-(USERSTACK+1)*PGSIZE);
+  sp = sz;
+  stackbase = sp - USERSTACK*PGSIZE;
 
+  // Push argument strings, prepare rest of stack in ustack.
+  for(argc = 0; argv[argc]; argc++) {
+    if(argc >= MAXARG)
+      goto bad;
+    sp -= strlen(argv[argc]) + 1;
+    sp -= sp % 16; // riscv sp must be 16-byte aligned
+    if(sp < stackbase)
+      goto bad;
+    if(copyout(pagetable, sp, argv[argc], strlen(argv[argc]) + 1) < 0)
+      goto bad;
+    ustack[argc] = sp;
+  }
+  ustack[argc] = 0;
+
+  // push the array of argv[] pointers.
+  sp -= (argc+1) * sizeof(uint64);
+  sp -= sp % 16;
+  if(sp < stackbase)
+    goto bad;
+  if(copyout(pagetable, sp, (char *)ustack, (argc+1)*sizeof(uint64)) < 0)
+    goto bad;
+
+  // arguments to user main(argc, argv)
+  // argc is returned via the system call return
+  // value, which goes in a0.
+  p->trapframe->a1 = sp;
+```
+阅读exec代码，可以看到这里首页分配了两页，一页作为内核使用，一页作为USERSTACK使用。
+从尾部往头开始，先存放了argv的实际字符串，之后设置了对应的指针。a1存放了argv的指针。
