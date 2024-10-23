@@ -192,3 +192,17 @@ summary
 从secret我们可以轻易可得代码
 ![alt text](image-32.png)
 但是实际上无法获得secret，因此需要继续阅读代码。
+```c
+struct run {
+  struct run *next;
+};
+
+struct {
+  struct spinlock lock;
+  struct run *freelist;
+} kmem;
+```
+可以看到run是一个链表结构。
+kmem通过*freelist管理空闲内存。如果需要分配内存，那么可以从头部移除一个节点。
+如果需要释放内存，那么在freelist增加一个节点。
+![alt text](image-33.png)
