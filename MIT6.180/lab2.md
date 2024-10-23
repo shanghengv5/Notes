@@ -205,4 +205,30 @@ struct {
 可以看到run是一个链表结构。
 kmem通过*freelist管理空闲内存。如果需要分配内存，那么可以从头部移除一个节点。
 如果需要释放内存，那么在freelist增加一个节点。
-![alt text](image-33.png)
+
+```c
+// Allocate one 4096-byte page of physical memory.
+// Returns a pointer that the kernel can use.
+// Returns 0 if the memory cannot be allocated.
+void *
+kalloc(void)
+{
+  struct run *r;
+
+  acquire(&kmem.lock);
+  r = kmem.freelist;
+  if(r) {
+    kmem.freelist = r->next;
+  }
+  release(&kmem.lock);
+#ifndef LAB_SYSCALL
+  if(r)
+    memset((char*)r, 5, PGSIZE); // fill with junk
+#endif
+  return (void*)r;
+}
+```
+
+可以看到每次kalloc都从freelist的头部分配一个空闲内存块。
+
+
