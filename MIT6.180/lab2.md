@@ -283,3 +283,45 @@ proc_freepagetable(oldpagetable, oldsz);
 
 这里可以看到，这里会替换pagetable,并且free旧的pagetable
 
+```c
+// Free user memory pages,
+// then free page-table pages.
+void
+uvmfree(pagetable_t pagetable, uint64 sz)
+{
+  if(sz > 0)
+    uvmunmap(pagetable, 0, PGROUNDUP(sz)/PGSIZE, 1);
+  freewalk(pagetable);
+}
+```
+分析uvmfree函数。
+
+```c
+// Free the page of physical memory pointed at by pa,
+// which normally should have been returned by a
+// call to kalloc().  (The exception is when
+// initializing the allocator; see kinit above.)
+void
+kfree(void *pa)
+{
+  struct run *r;
+
+  if(((uint64)pa % PGSIZE) != 0 || (char*)pa < end || (uint64)pa >= PHYSTOP)
+    panic("kfree");
+
+
+#ifndef LAB_SYSCALL
+  // Fill with junk to catch dangling refs.
+  memset(pa, 1, PGSIZE);
+#endif
+  
+  r = (struct run*)pa;
+
+  acquire(&kmem.lock);
+  r->next = kmem.freelist;
+  kmem.freelist = r;
+  release(&kmem.lock);
+}
+```
+
+聚焦于kfree函数，可以看见旧的空闲内存是从头部添加回来的。
