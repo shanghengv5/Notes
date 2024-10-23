@@ -270,3 +270,16 @@ sz = PGROUNDUP(sz);
 ```
 阅读exec代码，可以看到这里首页分配了两页，一页作为内核使用，一页作为USERSTACK使用。
 从尾部往头开始，先存放了argv的实际字符串，之后设置了对应的指针。a1存放了argv的指针。
+
+```c
+// Commit to the user image.
+oldpagetable = p->pagetable;
+p->pagetable = pagetable;
+p->sz = sz;
+p->trapframe->epc = elf.entry;  // initial program counter = main
+p->trapframe->sp = sp; // initial stack pointer
+proc_freepagetable(oldpagetable, oldsz);
+```
+
+这里可以看到，这里会替换pagetable,并且free旧的pagetable
+
