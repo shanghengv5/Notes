@@ -185,3 +185,10 @@ summary
 ![alt text](image-30.png)
 
 ## Attack xv6 (moderate)
+
+### 边界对齐
+![alt text](image-31.png)
+
+从secret我们可以轻易可得代码
+![alt text](image-32.png)
+但是实际上无法获得secret，因此需要继续阅读代码。

@@ -31,6 +31,11 @@
         "tuple": "c",
         "type_traits": "c",
         "fcntl.h": "c",
-        "fs.h": "c"
+        "fs.h": "c",
+        "exception": "c",
+        "iosfwd": "c",
+        "new": "c",
+        "ostream": "c",
+        "streambuf": "c"
     }
 }
