@@ -333,182 +333,148 @@ secret在第10页，因此反排后，可以知道32～10，需要前进22页。
 每次分配4页，
 
 ```log
-sbrk:pname:sh sz:5 n:16
-uvmalloc:pname:sh addr_page:556845 a_page:5
-uvmalloc:pname:sh addr_page:556846 a_page:6
-uvmalloc:pname:sh addr_page:556847 a_page:7
-uvmalloc:pname:sh addr_page:556848 a_page:8
-uvmalloc:pname:sh addr_page:556849 a_page:9
-uvmalloc:pname:sh addr_page:556850 a_page:10
-uvmalloc:pname:sh addr_page:556851 a_page:11
-uvmalloc:pname:sh addr_page:556852 a_page:12
-uvmalloc:pname:sh addr_page:556853 a_page:13
-uvmalloc:pname:sh addr_page:556854 a_page:14
-uvmalloc:pname:sh addr_page:556855 a_page:15
-uvmalloc:pname:sh addr_page:556881 a_page:16
-uvmalloc:pname:sh addr_page:556869 a_page:17
-uvmalloc:pname:sh addr_page:556868 a_page:18
-uvmalloc:pname:sh addr_page:556880 a_page:19
-uvmalloc:pname:sh addr_page:556866 a_page:20
-exec:loadmem:pname:sh mem_page:0
-uvmalloc:pname:sh addr_page:556834 a_page:0
-exec:loadmem:pname:sh mem_page:0
-uvmalloc:pname:sh addr_page:556831 a_page:1
-exec:loadUSERSTACK:pname:sh alloc_page:2
-uvmalloc:pname:sh addr_page:556830 a_page:2
-uvmalloc:pname:sh addr_page:556829 a_page:3
-do_free:pname:attacktest addr_page:556867 a_page:0
-do_free:pname:attacktest addr_page:556841 a_page:1
-do_free:pname:attacktest addr_page:556842 a_page:2
-do_free:pname:attacktest addr_page:556843 a_page:3
-do_free:pname:attacktest addr_page:556844 a_page:4
-do_free:pname:attacktest addr_page:556845 a_page:5
-do_free:pname:attacktest addr_page:556846 a_page:6
-do_free:pname:attacktest addr_page:556847 a_page:7
-do_free:pname:attacktest addr_page:556848 a_page:8
-do_free:pname:attacktest addr_page:556849 a_page:9
-do_free:pname:attacktest addr_page:556850 a_page:10
-do_free:pname:attacktest addr_page:556851 a_page:11
-do_free:pname:attacktest addr_page:556852 a_page:12
-do_free:pname:attacktest addr_page:556853 a_page:13
-do_free:pname:attacktest addr_page:556854 a_page:14
-do_free:pname:attacktest addr_page:556855 a_page:15
-do_free:pname:attacktest addr_page:556881 a_page:16
-do_free:pname:attacktest addr_page:556869 a_page:17
-do_free:pname:attacktest addr_page:556868 a_page:18
-do_free:pname:attacktest addr_page:556880 a_page:19
-do_free:pname:attacktest addr_page:556866 a_page:20
-exec:loadmem:pname:attacktest mem_page:0
-uvmalloc:pname:attacktest addr_page:556851 a_page:0
-exec:loadmem:pname:attacktest mem_page:0
-uvmalloc:pname:attacktest addr_page:556848 a_page:1
-exec:loadUSERSTACK:pname:attacktest alloc_page:2
-uvmalloc:pname:attacktest addr_page:556847 a_page:2
-uvmalloc:pname:attacktest addr_page:556846 a_page:3
-do_free:pname:secret addr_page:556839 a_page:0
-do_free:pname:secret addr_page:556880 a_page:1
-do_free:pname:secret addr_page:556868 a_page:2
-do_free:pname:secret addr_page:556869 a_page:3
-sbrk:pname:secret sz:4 n:32
-uvmalloc:pname:secret addr_page:556855 a_page:4
-uvmalloc:pname:secret addr_page:556881 a_page:5
-uvmalloc:pname:secret addr_page:556884 a_page:6
-uvmalloc:pname:secret addr_page:556883 a_page:7
-uvmalloc:pname:secret addr_page:556882 a_page:8
-uvmalloc:pname:secret addr_page:556840 a_page:9
-uvmalloc:pname:secret addr_page:556866 a_page:10
-uvmalloc:pname:secret addr_page:556869 a_page:11
-uvmalloc:pname:secret addr_page:556868 a_page:12
-uvmalloc:pname:secret addr_page:556880 a_page:13
-uvmalloc:pname:secret addr_page:556839 a_page:14
-uvmalloc:pname:secret addr_page:556845 a_page:15
-uvmalloc:pname:secret addr_page:556844 a_page:16
-uvmalloc:pname:secret addr_page:556843 a_page:17
-uvmalloc:pname:secret addr_page:556842 a_page:18
-uvmalloc:pname:secret addr_page:556841 a_page:19
-uvmalloc:pname:secret addr_page:556867 a_page:20
-uvmalloc:pname:secret addr_page:556828 a_page:21
-uvmalloc:pname:secret addr_page:556827 a_page:22
-uvmalloc:pname:secret addr_page:556826 a_page:23
-uvmalloc:pname:secret addr_page:556825 a_page:24
-uvmalloc:pname:secret addr_page:556824 a_page:25
-uvmalloc:pname:secret addr_page:556823 a_page:26
-uvmalloc:pname:secret addr_page:556822 a_page:27
-uvmalloc:pname:secret addr_page:556821 a_page:28
-uvmalloc:pname:secret addr_page:556820 a_page:29
-uvmalloc:pname:secret addr_page:556819 a_page:30
-uvmalloc:pname:secret addr_page:556818 a_page:31
-uvmalloc:pname:secret addr_page:556817 a_page:32
-uvmalloc:pname:secret addr_page:556816 a_page:33
-uvmalloc:pname:secret addr_page:556815 a_page:34
-uvmalloc:pname:secret addr_page:556814 a_page:35
-wait:freeproc:pname:attacktest sz:4 oldsz:36
-trapframe:kfree:attacktest mysz:4 page:556838
-pagetable:proc_freepagetable:attacktest mysz:4
-do_free:pname:attacktest addr_page:556851 a_page:0
-do_free:pname:attacktest addr_page:556848 a_page:1
-do_free:pname:attacktest addr_page:556847 a_page:2
-do_free:pname:attacktest addr_page:556846 a_page:3
-do_free:pname:attacktest addr_page:556855 a_page:4
-do_free:pname:attacktest addr_page:556881 a_page:5
-do_free:pname:attacktest addr_page:556884 a_page:6
-do_free:pname:attacktest addr_page:556883 a_page:7
-do_free:pname:attacktest addr_page:556882 a_page:8
-do_free:pname:attacktest addr_page:556840 a_page:9
-do_free:pname:attacktest addr_page:556866 a_page:10
-do_free:pname:attacktest addr_page:556869 a_page:11
-do_free:pname:attacktest addr_page:556868 a_page:12
-do_free:pname:attacktest addr_page:556880 a_page:13
-do_free:pname:attacktest addr_page:556839 a_page:14
-do_free:pname:attacktest addr_page:556845 a_page:15
-do_free:pname:attacktest addr_page:556844 a_page:16
-do_free:pname:attacktest addr_page:556843 a_page:17
-do_free:pname:attacktest addr_page:556842 a_page:18
-do_free:pname:attacktest addr_page:556841 a_page:19
-do_free:pname:attacktest addr_page:556867 a_page:20
-do_free:pname:attacktest addr_page:556828 a_page:21
-do_free:pname:attacktest addr_page:556827 a_page:22
-do_free:pname:attacktest addr_page:556826 a_page:23
-do_free:pname:attacktest addr_page:556825 a_page:24
-do_free:pname:attacktest addr_page:556824 a_page:25
-do_free:pname:attacktest addr_page:556823 a_page:26
-do_free:pname:attacktest addr_page:556822 a_page:27
-do_free:pname:attacktest addr_page:556821 a_page:28
-do_free:pname:attacktest addr_page:556820 a_page:29
-do_free:pname:attacktest addr_page:556819 a_page:30
-do_free:pname:attacktest addr_page:556818 a_page:31
-do_free:pname:attacktest addr_page:556817 a_page:32
-do_free:pname:attacktest addr_page:556816 a_page:33
-do_free:pname:attacktest addr_page:556815 a_page:34
-do_free:pname:attacktest addr_page:556814 a_page:35
-exec:loadmem:pname:attacktest mem_page:0
-uvmalloc:pname:attacktest addr_page:556824 a_page:0
-exec:loadmem:pname:attacktest mem_page:0
-uvmalloc:pname:attacktest addr_page:556827 a_page:1
-exec:loadUSERSTACK:pname:attacktest alloc_page:2
-uvmalloc:pname:attacktest addr_page:556828 a_page:2
-uvmalloc:pname:attacktest addr_page:556867 a_page:3
-do_free:pname:attack addr_page:556814 a_page:0
-do_free:pname:attack addr_page:556817 a_page:1
-do_free:pname:attack addr_page:556818 a_page:2
-do_free:pname:attack addr_page:556819 a_page:3
-sbrk:pname:attack sz:4 n:32
-uvmalloc:pname:attack addr_page:556820 a_page:4
-uvmalloc:pname:attack addr_page:556852 a_page:5
-uvmalloc:pname:attack addr_page:556850 a_page:6
-uvmalloc:pname:attack addr_page:556849 a_page:7
-uvmalloc:pname:attack addr_page:556815 a_page:8
-uvmalloc:pname:attack addr_page:556816 a_page:9
-uvmalloc:pname:attack addr_page:556819 a_page:10
-uvmalloc:pname:attack addr_page:556818 a_page:11
-uvmalloc:pname:attack addr_page:556817 a_page:12
-uvmalloc:pname:attack addr_page:556814 a_page:13
-uvmalloc:pname:attack addr_page:556841 a_page:14
-uvmalloc:pname:attack addr_page:556842 a_page:15
-uvmalloc:pname:attack addr_page:556843 a_page:16
-uvmalloc:pname:attack addr_page:556844 a_page:17
-uvmalloc:pname:attack addr_page:556845 a_page:18
-uvmalloc:pname:attack addr_page:556839 a_page:19
-uvmalloc:pname:attack addr_page:556880 a_page:20
-uvmalloc:pname:attack addr_page:556868 a_page:21
-uvmalloc:pname:attack addr_page:556869 a_page:22
-uvmalloc:pname:attack addr_page:556866 a_page:23
-uvmalloc:pname:attack addr_page:556840 a_page:24
-uvmalloc:pname:attack addr_page:556882 a_page:25
-uvmalloc:pname:attack addr_page:556883 a_page:26
-uvmalloc:pname:attack addr_page:556884 a_page:27
-uvmalloc:pname:attack addr_page:556881 a_page:28
-uvmalloc:pname:attack addr_page:556855 a_page:29
-uvmalloc:pname:attack addr_page:556846 a_page:30
-uvmalloc:pname:attack addr_page:556847 a_page:31
-uvmalloc:pname:attack addr_page:556848 a_page:32
-uvmalloc:pname:attack addr_page:556851 a_page:33
-uvmalloc:pname:attack addr_page:556838 a_page:34
-uvmalloc:pname:attack addr_page:556813 a_page:35
-FAIL: no/incorrect secret
+secret: start 
+kalloc: addr_page:556844 
+kalloc: addr_page:556843 
+kalloc: addr_page:556885 
+kalloc: addr_page:556884 
+kalloc: addr_page:556883 
+kalloc: addr_page:556867 
+kalloc: addr_page:556839 
+kalloc: addr_page:556842 
+kalloc: addr_page:556841 
+kalloc: addr_page:556840 
+kalloc: addr_page:556882 
+kalloc: addr_page:556854 
+kalloc: addr_page:556855 
+kalloc: addr_page:556881 
+kalloc: addr_page:556869 
+kalloc: addr_page:556868 
+kalloc: addr_page:556880 
+kalloc: addr_page:556828 
+kalloc: addr_page:556827 
+kalloc: addr_page:556826 
+kalloc: addr_page:556825 
+kalloc: addr_page:556824 
+kalloc: addr_page:556823 
+kalloc: addr_page:556822 
+kalloc: addr_page:556821 
+kalloc: addr_page:556820 
+kalloc: addr_page:556819 
+kalloc: addr_page:556818 
+kalloc: addr_page:556817 
+kalloc: addr_page:556816 
+kalloc: addr_page:556815 
+kalloc: addr_page:556814 
+kfree: addr_page:556838 
+kfree: addr_page:556848 
+kfree: addr_page:556851 
+kfree: addr_page:556852 
+kfree: addr_page:556853 
+kfree: addr_page:556844 
+kfree: addr_page:556843 
+kfree: addr_page:556885 
+kfree: addr_page:556884 
+kfree: addr_page:556883 
+kfree: addr_page:556867 
+kfree: addr_page:556839 
+kfree: addr_page:556842 
+kfree: addr_page:556841 
+kfree: addr_page:556840 
+kfree: addr_page:556882 
+kfree: addr_page:556854 
+kfree: addr_page:556855 
+kfree: addr_page:556881 
+kfree: addr_page:556869 
+kfree: addr_page:556868 
+kfree: addr_page:556880 
+kfree: addr_page:556828 
+kfree: addr_page:556827 
+kfree: addr_page:556826 
+kfree: addr_page:556825 
+kfree: addr_page:556824 
+kfree: addr_page:556823 
+kfree: addr_page:556822 
+kfree: addr_page:556821 
+kfree: addr_page:556820 
+kfree: addr_page:556819 
+kfree: addr_page:556818 
+kfree: addr_page:556817 
+kfree: addr_page:556816 
+kfree: addr_page:556815 
+kfree: addr_page:556814 
+kfree: addr_page:556850 
+kfree: addr_page:556849 
+kfree: addr_page:556847 
+kfree: addr_page:556846 
+kfree: addr_page:556845 
+kalloc: addr_page:556845 
+kalloc: addr_page:556846 
+kalloc: addr_page:556847 
+kalloc: addr_page:556849 
+kalloc: addr_page:556850 
+kalloc: addr_page:556814 
+kalloc: addr_page:556815 
+kalloc: addr_page:556816 
+kalloc: addr_page:556817 
+kalloc: addr_page:556818 
+kalloc: addr_page:556819 
+kalloc: addr_page:556820 
+kalloc: addr_page:556821 
+kalloc: addr_page:556822 
+kalloc: addr_page:556823 
+kalloc: addr_page:556824 
+kalloc: addr_page:556825 
+kalloc: addr_page:556826 
+kalloc: addr_page:556827 
+kalloc: addr_page:556828 
+kalloc: addr_page:556880 
+kfree: addr_page:556814 
+kfree: addr_page:556817 
+kfree: addr_page:556818 
+kfree: addr_page:556819 
+kfree: addr_page:556816 
+kfree: addr_page:556815 
+kfree: addr_page:556850 
+kfree: addr_page:556849 
+kfree: addr_page:556847 
+kfree: addr_page:556820 
+attack: start 
+kalloc: addr_page:556820 
+kalloc: addr_page:556847 
+kalloc: addr_page:556849 
+kalloc: addr_page:556850 
+kalloc: addr_page:556815 
+kalloc: addr_page:556816 
+kalloc: addr_page:556819 
+kalloc: addr_page:556818 
+kalloc: addr_page:556817 
+kalloc: addr_page:556814 
+kalloc: addr_page:556868 
+kalloc: addr_page:556869 
+kalloc: addr_page:556881 
+kalloc: addr_page:556855 
+kalloc: addr_page:556854 
+kalloc: addr_page:556882 
+kalloc: addr_page:556840 
+kalloc: addr_page:556841 
+kalloc: addr_page:556842 
+kalloc: addr_page:556839 
+kalloc: addr_page:556867 
+kalloc: addr_page:556883 
+kalloc: addr_page:556884 
+kalloc: addr_page:556885 
+kalloc: addr_page:556843 
+kalloc: addr_page:556844 
+kalloc: addr_page:556853 
+kalloc: addr_page:556852 
+kalloc: addr_page:556851 
+kalloc: addr_page:556848 
+kalloc: addr_page:556838 
+kalloc: addr_page:556813 
 ```
 
 通过print打印日志，可以得知page页数。现在回想，可能使用gdb可能更加方便。
-![alt text](image-36.png) 在第16位
 
+![alt text](image-38.png) 第十六位
 32位是因为需要存储指针，8byte
