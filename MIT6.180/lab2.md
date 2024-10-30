@@ -334,7 +334,7 @@ secret在第10页，因此反排后，可以知道32～10，需要前进22页。
 
 ```log
 secret: start 
-kalloc: addr_page:556844 
+kalloc: addr_page:556844 // 分配第1页
 kalloc: addr_page:556843 
 kalloc: addr_page:556885 
 kalloc: addr_page:556884 
@@ -343,7 +343,7 @@ kalloc: addr_page:556867
 kalloc: addr_page:556839 
 kalloc: addr_page:556842 
 kalloc: addr_page:556841 
-kalloc: addr_page:556840 
+kalloc: addr_page:556840 // 分配第10页
 kalloc: addr_page:556882 
 kalloc: addr_page:556854 
 kalloc: addr_page:556855 
@@ -371,7 +371,7 @@ kfree: addr_page:556848
 kfree: addr_page:556851 
 kfree: addr_page:556852 
 kfree: addr_page:556853 
-kfree: addr_page:556844 
+kfree: addr_page:556844 // 释放sbrk的第1页
 kfree: addr_page:556843 
 kfree: addr_page:556885 
 kfree: addr_page:556884 
@@ -402,7 +402,7 @@ kfree: addr_page:556818
 kfree: addr_page:556817 
 kfree: addr_page:556816 
 kfree: addr_page:556815 
-kfree: addr_page:556814 
+kfree: addr_page:556814 // 释放sbrk的第32页
 kfree: addr_page:556850 
 kfree: addr_page:556849 
 kfree: addr_page:556847 
