@@ -477,4 +477,6 @@ kalloc: addr_page:556813
 通过print打印日志，可以得知page页数。现在回想，可能使用gdb可能更加方便。
 
 ![alt text](image-38.png) 第十六位
+
+user/secret.c copies the secret bytes to memory whose address is 32 bytes after the start of a page. Change the 32 to 0 and you should see that your attack doesn't work anymore; why not?
 32位是因为需要存储指针，8byte
