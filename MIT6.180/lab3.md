@@ -13,4 +13,4 @@ read xv6 chapter3
 PTE >> 10 获得PPN， << 12 留出offset位，得到pa。
 PTE & 0x3ff,0x3ff是10位的mask,用于获得Flags
 
-## 
+## Speed up system calls (easy)
