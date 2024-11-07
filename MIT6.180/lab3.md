@@ -14,3 +14,45 @@ PTE >> 10 获得PPN， << 12 留出offset位，得到pa。
 PTE & 0x3ff,0x3ff是10位的mask,用于获得Flags
 
 ## Speed up system calls (easy)
+
+仿造着TRAPFRAME添加USYSCALL代码
+```c
+void
+proc_freepagetable(pagetable_t pagetable, uint64 sz)
+{
+  uvmunmap(pagetable, TRAMPOLINE, 1, 0);
+  uvmunmap(pagetable, TRAPFRAME, 1, 0);
+#ifdef LAB_PGTBL
+  uvmunmap(pagetable, USYSCALL, 1, 0);    
+#endif  
+  uvmfree(pagetable, sz);
+}
+
+...
+#ifdef LAB_PGTBL
+  if(mappages(pagetable, USYSCALL, PGSIZE,
+              (uint64)(p->usyscall), PTE_U | PTE_R ) < 0){
+    uvmunmap(pagetable, TRAMPOLINE, 1, 0);
+    uvmunmap(pagetable, TRAPFRAME, 1, 0);
+    uvmfree(pagetable, 0);
+    return 0;
+  }
+#endif
+
+...
+#ifdef LAB_PGTBL
+  if((p->usyscall = (struct usyscall *)kalloc()) == 0){
+      freeproc(p);
+      release(&p->lock);
+      return 0;
+  }
+  p->usyscall->pid = p->pid;
+#endif
+
+...
+#ifdef LAB_PGTBL
+  struct usyscall *usyscall;
+#endif
+```
+
+## Print a page table (easy)
