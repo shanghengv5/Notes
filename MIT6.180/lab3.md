@@ -56,3 +56,34 @@ proc_freepagetable(pagetable_t pagetable, uint64 sz)
 ```
 
 ## Print a page table (easy)
+```c
+void
+vmprint(pagetable_t pagetable) {
+  // your code here
+  printf("page table %p\n", pagetable);
+  pteprint(pagetable, 1);
+
+}
+
+void pteprint(pagetable_t pagetable, uint64 depth) {
+  for(int i = 0; i < 512; i++){
+    pte_t pte = pagetable[i];
+    if(pte & PTE_V) {
+      uint64 child = PTE2PA(pte);
+      for (int i = 0; i < depth; i++) {
+        printf(" ..");
+      }
+      uint64 va = i * PGSIZE;
+      printf("%p: pte %p pa %p\n", (void *)va, (pte_t *)pte, (pte_t *)child);
+      if ((pte & (PTE_R|PTE_W|PTE_X)) == 0) {
+        pteprint((pagetable_t)child, depth+1);
+      }
+    }
+  }
+}
+```
+### For every leaf page in the vmprint output, explain what it logically contains and what its permission bits are, and how it relates to the output of the earlier print_pgtbl() exercise above. Figure 3.4 in the xv6 book might be helpful, although note that the figure might have a slightly different set of pages than the process that's being inspected here.
+可以使用PTE_FLAGS获取对应的权限位
+
+## Use superpages (moderate)/(hard)
+
