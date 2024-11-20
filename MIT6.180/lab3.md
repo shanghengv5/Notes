@@ -87,3 +87,5 @@ void pteprint(pagetable_t pagetable, uint64 depth) {
 
 ## Use superpages (moderate)/(hard)
 
+### READ pgtbltest.c
+### add superalloc and superfree
