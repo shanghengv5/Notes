@@ -89,3 +89,9 @@ void pteprint(pagetable_t pagetable, uint64 depth) {
 
 ### READ pgtbltest.c
 ### add superalloc and superfree
+### 参考资料
+
+[A Comprehensive Analysis of Superpage
+Management Mechanisms and Policies](https://www.usenix.org/system/files/atc20-zhu-weixi_0.pdf)
+
+[Redit about page table](https://www.reddit.com/r/RISCV/comments/v895do/what_are_super_pages_wrt_page_tables/)
