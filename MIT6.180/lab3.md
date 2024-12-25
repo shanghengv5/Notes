@@ -87,6 +87,51 @@ void pteprint(pagetable_t pagetable, uint64 depth) {
 
 ## Use superpages (moderate)/(hard)
 
+定义好对应的superKem以及SUPER_PG标志位。
+设置一个合理的superpg数量，即可
+```
+#define PTE_SUPER (1L << 5) // SUPER
+
+#ifdef LAB_PGTBL
+void superfree(void *pa)
+{
+  struct run *r;
+
+  if (((uint64)pa % SUPERPGSIZE) != 0 || (char *)pa < end || (uint64)pa >= PHYSTOP)
+    panic("superfree");
+
+  // Fill with junk to catch dangling refs.
+  memset(pa, 1, SUPERPGSIZE);
+
+  r = (struct run *)pa;
+
+  acquire(&superKmem.lock);
+  r->next = superKmem.freelist;
+  superKmem.freelist = r;
+  release(&superKmem.lock);
+}
+
+// Allocate one super 2MB page of physical memory.
+// Returns a pointer that the kernel can use.
+// Returns 0 if the memory cannot be allocated.
+void *
+superalloc(void)
+{
+  struct run *r;
+
+  acquire(&superKmem.lock);
+  r = superKmem.freelist;
+  if (r)
+    superKmem.freelist = r->next;
+  release(&superKmem.lock);
+  if (r)
+    memset((char *)r, 5, SUPERPGSIZE); // fill with junk
+  return (void *)r;
+}
+#endif
+
+```
+
 ### READ pgtbltest.c
 ### add superalloc and superfree
 ### 参考资料
