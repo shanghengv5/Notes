@@ -21,5 +21,6 @@ x1000+4=x1004
 ```
 
 He110, World
-
+Big endian
+He110, Wo
 ## 
