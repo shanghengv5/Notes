@@ -23,4 +23,12 @@ x1000+4=x1004
 He110, World
 Big endian
 He110, Wo
-## 
+## In the following code, what is going to be printed after 'y='? (note: the answer is not a specific value.) Why does this happen?
+```
+	printf("x=%d y=%d", 3);
+```
+throw a exception, try to read an undifiend parameter
+
+# Backtrace(moderate)
+
+
