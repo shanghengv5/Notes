@@ -44,6 +44,6 @@
         "cmath": "c",
         "numeric": "c",
         "utility": "c",
-        
+        "proc.h": "c"
     }
 }

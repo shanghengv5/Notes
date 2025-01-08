@@ -31,4 +31,20 @@ throw a exception, try to read an undifiend parameter
 
 # Backtrace(moderate)
 
+![alt text](image-40.png)
+
+```c
+void 
+backtrace()
+{
+  printf("backtrace:\n");
+  uint64 fp = r_fp();  
+  
+  while(fp > PGROUNDDOWN(fp)) {
+    uint64* return_address = (uint64*)(fp-8);
+    printf("0x%lx \n", *return_address);    
+    fp = *(uint64*)(fp-16);
+  }
+}
+```
 
