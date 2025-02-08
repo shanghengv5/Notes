@@ -9,10 +9,9 @@ function f
 function g
 14:	250d                	addiw	a0,a0,3 
 ## At what address is the function printf located?
-pc is x1 shif left 12bit => x1000
-x1000+x6bc=x16bc
+0x6cc
 ## What value is in the register ra just after the jalr to printf in main?
-x1000+4=x1004
+jump 指令在0x30,因此ra应该为0x34，当到0x6cc执行完prinf后，跳回0x34继续执行指令
 ## What is the output? Here's an ASCII table that maps bytes to characters.The output depends on that fact that the RISC-V is little-endian. If the RISC-V were instead big-endian what would you set i to in order to yield the same output? Would you need to change 57616 to a different value?
 
 ```
