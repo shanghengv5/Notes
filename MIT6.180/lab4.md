@@ -47,3 +47,55 @@ backtrace()
 }
 ```
 
+# Alarm (hard)
+```c
+uint64 
+sys_sigreturn(void)
+{
+  struct proc* proc = myproc();
+  acquire(&proc->lock);
+  memmove(proc->trapframe, proc->original_trapframe, sizeof(struct trapframe));
+  proc->ban = 0;
+  release(&proc->lock);
+  return proc->trapframe->a0;
+}
+
+uint64
+sys_sigalarm(void)
+{
+  int interval;
+  uint64 handler;
+  argint(0, &interval);
+  argaddr(1, &handler);
+
+  struct proc* proc = myproc();
+  acquire(&proc->lock);
+  proc->siginterval =  interval;
+  proc->sighanlder =  handler;
+  proc->alreadyTicks = 0;
+  release(&proc->lock);
+  // printf("init sys_sigalarm %d \n", interval);
+  return 0;
+}
+
+...trap.c
+// give up the CPU if this is a timer interrupt.
+  if(which_dev == 2) {
+    struct proc* proc = myproc();
+    acquire (&proc->lock);
+    myproc()->alreadyTicks++;
+    if ( 
+      proc->siginterval > 0 && 
+      proc->alreadyTicks >= proc->siginterval &&
+      !proc->ban
+    ) {
+      memmove(proc->original_trapframe, proc->trapframe, sizeof(struct trapframe));
+      proc->alreadyTicks = 0;
+      proc->trapframe->epc = proc->sighanlder;
+      proc->ban = 1;
+    } 
+    release(&proc->lock);
+    yield();
+  }
+```
+
