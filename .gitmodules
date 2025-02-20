@@ -1,6 +1,6 @@
 [submodule "MIT6.180/xv6-labs-2024"]
 	path = MIT6.180/xv6-labs-2024
-	url = git://g.csail.mit.edu/xv6-labs-2024
+	url = https://github.com/shanghengv5/xv6-labs-2024
 [submodule "MIT6.5840Lab"]
 	path = MIT6.5840Lab
 	url = https://github.com/shanghengv5/6.5840Lab
