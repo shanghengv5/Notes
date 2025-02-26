@@ -5,4 +5,4 @@
 ## Questions
 1. ![alt text](image-46.png)
 2. ![alt text](image-47.png)
-3.
+3. modify buy NCPU, change freelist to a array
