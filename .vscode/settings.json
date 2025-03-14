@@ -47,6 +47,7 @@
         "proc.h": "c",
         "defs.h": "c",
         "cstdlib": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "typeinfo": "c"
     }
 }
