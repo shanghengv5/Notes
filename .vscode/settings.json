@@ -48,6 +48,7 @@
         "defs.h": "c",
         "cstdlib": "c",
         "string.h": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "net.h": "c"
     }
 }
