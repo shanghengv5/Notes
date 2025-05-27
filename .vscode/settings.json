@@ -49,6 +49,8 @@
         "cstdlib": "c",
         "string.h": "c",
         "typeinfo": "c",
-        "net.h": "c"
+        "net.h": "c",
+        "file.h": "c",
+        "sleeplock.h": "c"
     }
 }
